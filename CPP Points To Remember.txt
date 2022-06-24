@@ -1,0 +1,6 @@
+1. Static Variable static int x = 1;
+   this line is executed only once for the subsequent call it is not executed.
+
+2. Calling main inside main is a recursive function infinitely if no base condition.
+
+3
