@@ -3,4 +3,184 @@
 
 2. Calling main inside main is a recursive function infinitely if no base condition.
 
-3
+3. int x{10} is similar to x=10
+   int x{10,20,30} is similar to x[]={10,20,30}
+   => sizeof(x) 4*3
+   => to get size of each elements sizeof(x)/sizeof(x[0])
+
+4. ARRAY TRAVERSAL
+
+   int arr[]={10,20,30,40};
+   for(int x:arr)
+      cout<<x<<" ";
+
+   => To modify each elements using the traversal way above
+     
+     int arr[]={10,20,30,40};
+     for(int &x:arr) //reference pointer
+         x=x*2;
+
+5. TYPES OF ARRAY
+
+   Fixed size Array 
+                    -> Allocated in Function Call Stack
+                        int arr[100]
+                        int arr[n]
+                        int arr[]={10,20,30}
+                    -> Allocated in Heap
+                        int *arr=new int[n] // it will be there in memory even if function call is over 
+                                                can be accessed if we have the address
+
+   Dynamic Sized Arrays
+      Vector in C++ STL
+
+6. REFERENCES IN C++
+   -> To modify a passed parameter
+      int x=10;
+      int &y=x;
+      y=15; //x=15 & y=15
+   -> Avoid Copying of large objects during function call
+   -> Ctreate  an alias
+   -> Must be assigned whne declared
+         int &y;
+         int x=10;
+         y=x; //this is incorrect
+   -> cannot refer to another location
+   -> cannot be NULL
+   -> Safer and Easier To Use
+   -> using reference and not modyfying data better to use const for better readability
+         const int &y=x;
+
+   const & rValue Reference
+   => The reference discussed so far cannot refer to rValue e.g literals and results of expression
+   => const refernce and rValue refernces(&&) are used for this purpose.
+
+   void fun(string &&S)
+   {
+      cout<<s;
+   }
+   fun("This is its use")
+
+7. APPLICATION OF POINTERS
+   ->changing passed parameters
+   -> passing large objects
+   -> dynamic memory location
+   -> implementing data structures
+   -> to do system level programming
+   -> to return multiple Variable
+   -> used for accessing Array
+   -> to pass array arguments
+
+8. nullptr 
+   => this is same as NULL but 
+      NULL can be assigned to any datatype 
+      nullptr can be assigned to pointers only
+
+      it can be illustrated when function is overloaded 
+      one with int and other with pointer then fuction call having NULL as arguments
+      this is ambiguous as where to go but nullptr will go to pointers only
+
+9. POINTERS ARITHEMATIC
+   --   ++   ptr+int   ptr-int    ptr1-ptr2(gives no of objects btw them)
+
+
+10.
+      sizeof(array) = Datatype*NumberOfElements
+      sizeof(pointer) = 8 always
+
+      same precedence right associativity
+      ++*ptr == ++(*ptr)
+      *++ptr == *(++ptr)
+
+11. MultiDimensional ARRAY
+   ARRAY CREATION
+
+   => Double Pointer
+      int **arr; //double pointer
+      arr=new int *[m]
+      for(int i=0;i<m;i++)
+         arr[i]=new int[n]
+
+   => Array of pointers
+      int *arr[m];
+      for(int i=0;i<m;i++)
+         arr[i]=new int[n]
+
+   => Array Of Vectors
+   #include<vector>
+      vector<int>arr[m]
+      for(int i=0;i<m;i++)
+         for(int j=0;j<n;j++)
+            arr[i].push_back(10)
+
+            -> Not as cache friendly
+            -> Individual rows are of dynamic sizes
+            -> Easy To Pass to a function
+
+   => Vectors of vector
+      vector<vector<int>>arr;
+      for(int i=0;i<m;i++)
+      {
+         vector<int>v;
+         for(int j=0;j<n;j++)
+            v.push_back(10);
+         arr.push_back(v);
+      }
+
+   ARRAY PRINTING
+   for(int i=0;i<arr.size();i++)
+      for(int j=0;j<arr[i].size();j++)
+        cout<<arr[i][j]<<" ";
+
+12. String Class
+    string str="GFG";
+    str.length() = 3
+    str=str+"xyz"; //GFGxyz
+    str.substr(1,3) = FGx
+    str.find("FG") // 1(TRUE) gives first occurence
+
+    STRING TRAVERSAL
+
+    for(int i=0;i<str.length();i++)
+    cout<<str[i];
+
+    for(char x:str) //value can be changed by using &
+    cout<<x;
+
+    for(auto it=str.begin();it!=str.end();it++)
+    cout<<*it;
+
+13. STRUCTURES & UNION 
+      (struct) struct_name b; bracket part is optional
+
+      =>
+      typedef struct Student{
+         string name;
+         int roll;
+      }stu;
+
+      stu a; //instaed of writing struct Student a;
+      a.name="Aditya"
+
+      => 
+      struct Student p={.name="Aditya",.roll=3017} //order not necessary
+
+14. STRUCT v/s ClASS
+
+   structure has alignment and padding in memory storage
+   this can  be removed by __attribute__((packed))
+   struct Num
+   {
+      char c;
+      int a;
+      char b;
+   }
+   memory: 1000,1111,1000 char 1 int 1111
+
+   union allocates memory equvalent to memory required by each
+    union Num
+   {
+      char c;
+      int a;
+      char b;
+   }
